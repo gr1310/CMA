@@ -1,0 +1,102 @@
+import networkx as nx 
+import matplotlib.pyplot as plt
+import random
+# l= nx.grid_2d_graph(10,10)
+# print(l)
+l= nx.Graph()
+
+n=25
+dir= [-1,1]
+for i in range(n):
+    for j in range(n):
+        l.add_node((i,j))
+# print(l.nodes())
+
+for i in range(n):
+    for j in range(n):
+        if(random.random()<=0.4):
+            if(i==0):
+                l.add_edge((i,j),(i + 1, j))
+            elif(i==24):
+                l.add_edge((i,j),(i - 1, j))
+            else:
+                l.add_edge((i,j),(i + random.choice(dir), j))
+
+for i in range(n):
+    for j in range(n):
+        if(random.random()<=0.4):
+            if(j==0):
+                l.add_edge((i,j),(i , j+1))
+            elif (j==24):
+                l.add_edge((i,j), (i, j - 1))
+            else:
+                l.add_edge((i,j),(i , j+random.choice(dir)))
+
+pos = {(x,y):(y,-x) for x,y in l.nodes()}
+plt.figure(figsize=(6,6))
+nx.draw(l, pos=pos, node_size= 1)
+
+# plt.show()
+
+# g = nx.Graph([(1, 2), (2, 4), (1, 3), (3, 4)])
+# for path in sorted(nx.all_simple_edge_paths(g, 1, 4)):
+#     print(path)
+
+# G = nx.complete_graph(4)
+# print(G.nodes())
+# for path in nx.all_simple_paths(G, source=0, target=3):
+#     print(path)
+
+# import networkx as nx
+# import matplotlib.pyplot as plt
+
+# class Lattice:
+#     def __init__(self, n):
+#         self.n = n
+#         self.graph = self.create_lattice()
+
+#     def create_lattice(self):
+#         G = nx.Graph()
+
+#         # Create individual connected components (disjoint lattices)
+#         for i in range(self.n):
+#             for j in range(self.n):
+#                 G.add_node((i, j))
+
+#         # Connect nodes within each connected component
+#         for i in range(self.n):
+#             for j in range(self.n - 1):
+#                 G.add_edge((i, j), (i, j + 1))
+
+#         for i in range(self.n - 1):
+#             for j in range(self.n):
+#                 G.add_edge((i, j), (i + 1, j))
+
+#         return G
+
+#     def visualize_lattice(self):
+#         pos = {(i, j): (i, -j) for i, j in self.graph.nodes()}
+#         nx.draw(self.graph, pos=pos, with_labels=True, node_size=700, font_size=8, font_color='white', font_weight='bold', cmap=plt.get_cmap('Blues'))
+#         plt.show()
+
+#     def existsTopDownPath(self):
+#         top_layer_nodes = [(i, 0) for i in range(self.n)]
+#         bottom_layer_nodes = [(i, self.n - 1) for i in range(self.n)]
+
+#         # Check if there is a path from top to bottom using DFS
+#         for top_node in top_layer_nodes:
+#             for bottom_node in bottom_layer_nodes:
+#                 if nx.has_path(self.graph, source=top_node, target=bottom_node):
+#                     return True
+
+#         return False
+
+# # Example usage:
+# n_value = 5
+# lattice = Lattice(n_value)
+# lattice.visualize_lattice()
+
+# if lattice.existsTopDownPath():
+#     print("A top-down path exists.")
+# else:
+#     print("No top-down path exists.")
